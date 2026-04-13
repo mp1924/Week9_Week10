@@ -1,23 +1,29 @@
 import java.util.Scanner;
 
-class VowelConsonant {
+class SplitWords {
 
-    public static int[] countVC(String text) {
-        int vowels = 0, consonants = 0;
+    public static String[] splitText(String text) {
+        int spaces = 0;
 
         for (int i = 0; i < text.length(); i++) {
-            char ch = Character.toLowerCase(text.charAt(i));
-
-            if (ch >= 'a' && ch <= 'z') {
-                if ("aeiou".indexOf(ch) != -1) {
-                    vowels++;
-                } else {
-                    consonants++;
-                }
-            }
+            if (text.charAt(i) == ' ') spaces++;
         }
 
-        return new int[]{vowels, consonants};
+        String[] words = new String[spaces + 1];
+        int index = 0;
+        String word = "";
+
+        for (int i = 0; i < text.length(); i++) {
+            if (text.charAt(i) != ' ') {
+                word += text.charAt(i);
+            } else {
+                words[index++] = word;
+                word = "";
+            }
+        }
+        words[index] = word;
+
+        return words;
     }
 
     public static void main(String[] args) {
@@ -26,9 +32,10 @@ class VowelConsonant {
         System.out.print("Enter text: ");
         String text = sc.nextLine();
 
-        int[] result = countVC(text);
+        String[] result = splitText(text);
 
-        System.out.println("Vowels: " + result[0]);
-        System.out.println("Consonants: " + result[1]);
+        for (String w : result) {
+            System.out.println(w);
+        }
     }
 }
