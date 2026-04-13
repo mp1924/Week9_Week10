@@ -1,30 +1,34 @@
 import java.util.Scanner;
 
-class StringLengthManual {
+class VowelConsonant {
 
-    public static int findLength(String text) {
-        int count = 0;
+    public static int[] countVC(String text) {
+        int vowels = 0, consonants = 0;
 
-        try {
-            while (true) {
-                text.charAt(count);
-                count++;
+        for (int i = 0; i < text.length(); i++) {
+            char ch = Character.toLowerCase(text.charAt(i));
+
+            if (ch >= 'a' && ch <= 'z') {
+                if ("aeiou".indexOf(ch) != -1) {
+                    vowels++;
+                } else {
+                    consonants++;
+                }
             }
-        } catch (Exception e) {
-            return count;
         }
+
+        return new int[]{vowels, consonants};
     }
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
         System.out.print("Enter text: ");
-        String text = sc.next();
+        String text = sc.nextLine();
 
-        int manual = findLength(text);
-        int builtin = text.length();
+        int[] result = countVC(text);
 
-        System.out.println("Manual length: " + manual);
-        System.out.println("Built-in length: " + builtin);
+        System.out.println("Vowels: " + result[0]);
+        System.out.println("Consonants: " + result[1]);
     }
 }
